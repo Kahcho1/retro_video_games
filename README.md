@@ -1,10 +1,12 @@
 # Retro Video Games 90s Database
 
 # Table of contents
-* [Project info] (#project-info)
-* [The CI Pipeline] (#the-ci-pipeline)
-* [Testing] (#testing)
-* [Future Improvments] (#future-improvements)
+- [Retro Video Games 90s Database](#retro-video-games-90s-database)
+- [Table of contents](#table-of-contents)
+  - [Project info](#project-info)
+  - [The CI Pipeline](#the-ci-pipeline)
+  - [Testing](#testing)
+  - [Future Improvements](#future-improvements)
 
 ## Project info
 Retro video games in the 90s project information. What it is and how it works.
