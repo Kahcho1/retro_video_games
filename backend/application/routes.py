@@ -64,3 +64,18 @@ def read_cdb():
 #     db.session.delete(task)
 #     db.session.commit()
 #     return Response(f"Task #{id} has been deleted!", mimetype='text/plain')
+
+# @app.route('/update/task/<int:id>', methods=['PUT'])
+# def update_task(id):
+#     package = request.json
+#     task = Tasks.query.get(id)
+#     task.desc = package["description"]
+#     db.session.commit()
+#     return Response(f"Task #{id} has been updated with description: {task.desc}", mimetype='text/plain')
+
+# @app.route('/delete/task/<int:id>', methods=['DELETE'])
+# def delete(id):
+#     task = Tasks.query.get(id)
+#     db.session.delete(task)
+#     db.session.commit()
+#     return Response(f"Task #{id} has been deleted!", mimetype='text/plain')
