@@ -4,7 +4,7 @@ services:
     deploy:
       # replicas: 1
     build: ./frontend
-    image: ${DOCKER_HUB_CREDS_USR}/retro_video_games-frontend:latest
+    image: retro_video_games-frontend:latest
     container_name: retro_video_games-frontend
     ports:
     - target: 5000
@@ -13,7 +13,7 @@ services:
     deploy:
       # replicas: 1
     build: ./backend
-    image: ${DOCKER_HUB_CREDS_USR}/retro_video_games-backend:latest
+    image: retro_video_games-backend:latest
     container_name: retro_video_games-backend
     environment:
       DATABASE_URI:

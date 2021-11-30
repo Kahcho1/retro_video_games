@@ -1,35 +1,39 @@
 {% extends "layout.html" %}
 
 {% block body %}
-    <h2>Tasks that are Incompleted</h2>
-    {% for task in all_tasks %}
+    <h2>List of Games in the 90s</h2>
+    {% for game in list_game %}
         <p>
-            {% if task.completed == False %}
             <br>
-            # {{ task.id }}
+            # {{ game.id }}
             <br>
-            Description of task: {{ task.description }}
+            Game Title: {{ game.game_name }}
             <br>
-            <a href="{{ url_for('update_task', id=task.id) }}">Edit Task</a>&ensp;&ensp;&ensp;
-            <a href="{{ url_for('status', id=task.id) }}">Complete</a><br><br>
-            <a href="{{ url_for('delete', id=task.id) }}">Delete Task</a>
-            {% endif %}
+            Release Date: {{ console.release_date }}
+            <br>
+            Platform: {{ game.console_name }}
+            <br>
+            Summary: {{ game.description }}
+            <br>
+         {# <!-- <a href="{{ url_for('update_task', id=game.id) }}">Edit Game</a>&ensp;&ensp;&ensp;
+            <br><br>
+            <a href="{{ url_for('delete', id=game.id) }}">Delete Game</a> --> #}
         </p>
     {% endfor %}
 
-    <h2>Tasks that are Completed</h2>
-    {% for task in all_tasks %}
+    <h2>List of Consoles</h2>
+    {% for console in list_console %}
     <p>
-        {% if task.completed == True %}
         <br>
-        # {{ task.id }}
+        # {{ console.id }}
         <br>
-        Descrition of task: {{ task.description }}
+        Name: {{ console.console_name }}
         <br>
-        <a href="{{ url_for('update_task', id=task.id) }}">Edit Task</a> &ensp;&ensp;&ensp;
-        <a href="{{ url_for('status_incomp', id=task.id) }}">Incomplete</a><br><br>
-        <a href="{{ url_for('delete', id=task.id) }}">Delete Task</a>
-        {% endif %}
+        Release Date: {{ console.release_date }}
+        <br>
+    {#  <!-- <a href="{{ url_for('update_task', id=console.id) }}">Edit Console</a> &ensp;&ensp;&ensp;
+        <br><br>
+        <a href="{{ url_for('delete', id=console.id) }}">Delete Console</a> --> #}
     </p>
     {% endfor %}
 
