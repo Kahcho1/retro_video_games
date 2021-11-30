@@ -1,0 +1,23 @@
+version: "3.8"
+services:
+  frontend:
+    deploy:
+      # replicas: 1
+    build: ./frontend
+    image: retro_video_games-frontend:latest
+    container_name: retro_video_games-frontend
+    ports:
+    - target: 5000
+      published: 80
+  backend:
+    deploy:
+      # replicas: 1
+    build: ./backend
+    image: retro_video_games-backend:latest
+    container_name: retro_video_games-backend
+    environment:
+      DATABASE_URI:
+      CREATE_SCHEMA:
+    ports:
+    - target: 5000
+      published: 5000

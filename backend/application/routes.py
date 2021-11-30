@@ -1,65 +1,66 @@
 from application import app, db
-from application.models import Tasks
+from application.models import Games, Console
 from flask import request, redirect, url_for, Response, jsonify
 
-@app.route('/create/task', methods=['POST'])
-def create_task():
+@app.route('/add/game', methods=['POST'])
+def add_game():
     package = request.json
-    task_new = Tasks(desc=package["description"])
-    db.session.add(task_new)
+    game_new = Games(game_name=package["game_name"], description=package["description"], date=package["date"])
+    db.session.add(new_game)
     db.session.commit()
-    return Response(f"Task with description has been added: {task_new.desc}", mimetype='text/plain')
+    return Response(f"{new_game.game_name} has been added to Games!", mimetype='text/plain')
 
-@app.route('/read/allTasks', methods=['GET'])
-def read_tasks():
-    all_tasks = Tasks.query.all()
-    t_dict = {"tasks": []}
+@app.route('/add/platform', methods=['POST'])
+def add_platform():
+    package = request.json
+    console_new = Console(console_name=package["console_name"], date=package["date"])
+    db.session.add(new_console)
+    db.session.commit()
+    return Response(f"{new_console.console_name} has been added to Consoles!", mimetype='text/plain')
 
-    for task in all_tasks:
-        t_dict["tasks"].append(
+@app.route('/read/vgdb', methods=['GET'])
+def read_vgdb():
+    list_game = Games.query.all()
+    game_dict = {"vgdb": []}
+
+    for game in list_game:
+        game_dict["vgdb"].append(
             {
-                "id": task.id,
-                "description": task.desc,
-                "completed": task.comp
+                "id": game.id,
+                "name": game.game_name,
+                "release_date": game.date,
+                "description": game.description,
+                "console": game.console_name
             }
         )
-    return jsonify(t_dict)
+    return jsonify(game_dict)
 
-@app.route('/read/tasks/<int:id>', methods=['GET'])
-def read_task(id):
-    task = Tasks.query.get(id)
-    t_dict = {
-                "id": task.id,
-                "description": task.desc,
-                "completed": task.comp
+@app.route('/read/cdb', methods=['GET'])
+def read_cdb():
+    list_console = Console.query.all()
+    console_dict = {"cdb": []}
+
+    for console in list_console:
+        game_dict["cdb"].append(
+            {
+                "id": console.id,
+                "name": console.console_name,
+                "release_date": console.date
             }
-    return jsonify(t_dict)
+        )
+    return jsonify(console_dict)
 
-@app.route('/update/task/<int:id>', methods=['PUT'])
-def update_task(id):
-    package = request.json
-    task = Tasks.query.get(id)
-    task.desc = package["description"]
-    db.session.commit()
-    return Response(f"Task #{id} has been updated with description: {task.desc}", mimetype='text/plain')
+# @app.route('/update/task/<int:id>', methods=['PUT'])
+# def update_task(id):
+#     package = request.json
+#     task = Tasks.query.get(id)
+#     task.desc = package["description"]
+#     db.session.commit()
+#     return Response(f"Task #{id} has been updated with description: {task.desc}", mimetype='text/plain')
 
-@app.route('/delete/task/<int:id>', methods=['DELETE'])
-def delete(id):
-    task = Tasks.query.get(id)
-    db.session.delete(task)
-    db.session.commit()
-    return Response(f"Task #{id} has been deleted!", mimetype='text/plain')
-
-@app.route('/complete/task/<int:id>', methods=['PUT'])
-def status(id):
-    task = Tasks.query.get(id)
-    task.comp = True
-    db.session.commit()
-    return Response(f"Task #{id} status has been changed to completed.", mimetype='text/plain')
-
-@app.route('/incomplete/task/<int:id>', methods=['PUT'])
-def status_incomp(id):
-    task = Tasks.query.get(id)
-    task.comp = False
-    db.session.commit()
-    return Response(f"Task #{id} status has been changed to incompleted.", mimetype='text/plain')
+# @app.route('/delete/task/<int:id>', methods=['DELETE'])
+# def delete(id):
+#     task = Tasks.query.get(id)
+#     db.session.delete(task)
+#     db.session.commit()
+#     return Response(f"Task #{id} has been deleted!", mimetype='text/plain')
