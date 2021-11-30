@@ -2,40 +2,55 @@ from application import app, db
 from application.models import Games, Console
 from flask import request, redirect, url_for, Response, jsonify
 
-@app.route('/create/game', methods=['POST'])
-def create_game():
+@app.route('/add/game', methods=['POST'])
+def add_game():
     package = request.json
-    game_new = Games(desc=package["description"])
-    db.session.add(game_new)
+    game_new = Games(game_name=package["game_name"])
+    db.session.add(new_game)
     db.session.commit()
-    return Response(f"Game with description has been added: {game_new.description}", mimetype='text/plain')
+    return Response(f"{new_game.game_name} has been added to Games!", mimetype='text/plain')
 
-@app.route('/read/allGames', methods=['GET'])
-def read_games():
+@app.route('/add/date', methods=['POST'])
+def add_date():
+    package = request.json
+    game_new = Games(date=package["date"])
+    db.session.add(new_date)
+    db.session.commit()
+    return Response(f"{new_date.date} date has been added to database", mimetype='text/plain')
+
+@app.route('/add/console', methods=['POST'])
+def add_console():
+    package = request.json
+    console_new = Console(console_name=package["cname"])
+    db.session.add(new_console)
+    db.session.commit()
+    return Response(f"{new_console.console_name} has been added to Consoles!", mimetype='text/plain')
+
+@app.route('/read/vgdb', methods=['GET'])
+def read_vgdb():
     all_games = Games.query.all()
-    g_dict = {"games": []}
+    game_dict = {"vgdb": []}
 
-    for games in all_games:
-        g_dict["games"].append(
+    for game in vgdb:
+        game_dict["vgdb"].append(
             {
-                "id": games.id,
-                "Name": games.gname,
-                "description": games.description,
-                "Release Date": games.gdate
+                "id": game.id,
+                "name": game.game_name,
+                "release_date": game.date,
+                "console": game.console_name
             }
         )
-    return jsonify(g_dict)
+    return jsonify(game_dict)
 
-@app.route('/read/games/<int:id>', methods=['GET'])
-def read_game(id):
-    game = Tasks.query.get(id)
-    g_dict = {
-                "id": games.id,
-                "Name": games.gname,
-                "description": games.description,
-                "Release Date": games.gdate
-            }
-    return jsonify(g_dict)
+# @app.route('/read/tasks/<int:id>', methods=['GET'])
+# def read_task(id):
+#     task = Tasks.query.get(id)
+#     t_dict = {
+#                 "id": task.id,
+#                 "description": task.desc,
+#                 "completed": task.comp
+#             }
+#     return jsonify(t_dict)
 
 # @app.route('/update/task/<int:id>', methods=['PUT'])
 # def update_task(id):
