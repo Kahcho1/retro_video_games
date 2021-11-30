@@ -8,9 +8,9 @@ backend_host = "todo-list_backend:5000"
 @app.route('/')
 @app.route('/home')
 def home():
-    all_tasks = requests.get(f"http://{backend_host}/read/allTasks").json()
-    app.logger.info(f"Tasks: {all_tasks}")
-    return render_template('index.html', title="Home Page", all_tasks=all_tasks["tasks"])
+    all_games = requests.get(f"http://{backend_host}/read/vgdb").json()
+    app.logger.info(f"Games: {all_games}")
+    return render_template('index.html', title="Home Page", all_games=all_games["games"])
 
 @app.route('/create/task', methods=['GET', 'POST'])
 def create_task():

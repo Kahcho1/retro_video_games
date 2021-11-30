@@ -5,52 +5,61 @@ from flask import request, redirect, url_for, Response, jsonify
 @app.route('/add/game', methods=['POST'])
 def add_game():
     package = request.json
-    game_new = Games(game_name=package["game_name"])
+    game_new = Games(game_name=package["game_name"], description=package["description"], date=package["date"])
     db.session.add(new_game)
     db.session.commit()
     return Response(f"{new_game.game_name} has been added to Games!", mimetype='text/plain')
 
-@app.route('/add/date', methods=['POST'])
-def add_date():
+@app.route('/add/platform', methods=['POST'])
+def add_platform():
     package = request.json
-    game_new = Games(date=package["date"])
-    db.session.add(new_date)
-    db.session.commit()
-    return Response(f"{new_date.date} date has been added to database", mimetype='text/plain')
-
-@app.route('/add/console', methods=['POST'])
-def add_console():
-    package = request.json
-    console_new = Console(console_name=package["cname"])
+    console_new = Console(console_name=package["console_name"], date=package["date"])
     db.session.add(new_console)
     db.session.commit()
     return Response(f"{new_console.console_name} has been added to Consoles!", mimetype='text/plain')
 
 @app.route('/read/vgdb', methods=['GET'])
 def read_vgdb():
-    all_games = Games.query.all()
+    list_game = Games.query.all()
     game_dict = {"vgdb": []}
 
-    for game in vgdb:
+    for game in list_game:
         game_dict["vgdb"].append(
             {
                 "id": game.id,
                 "name": game.game_name,
                 "release_date": game.date,
+                "description": game.description,
                 "console": game.console_name
             }
         )
     return jsonify(game_dict)
 
-# @app.route('/read/tasks/<int:id>', methods=['GET'])
-# def read_task(id):
-#     task = Tasks.query.get(id)
-#     t_dict = {
-#                 "id": task.id,
-#                 "description": task.desc,
-#                 "completed": task.comp
+@app.route('/read/cdb', methods=['GET'])
+def read_vgdb():
+    list_console = Console.query.all()
+    console_dict = {"cdb": []}
+
+    for game in vgdb:
+        game_dict["cdb"].append(
+            {
+                "id": game.id,
+                "name": game.console_name,
+                "release_date": game.date
+            }
+        )
+    return jsonify(console_dict)
+
+# @app.route('/read/vgdb/<int:id>', methods=['GET'])
+# def read_vgdb(id):
+#     game = Games.query.get(id)
+#     game_dict = {
+#                 "id": game.id,
+#                 "name": game.game_name,
+#                 "release_date": game.date,
+#                 "console": game.console_name
 #             }
-#     return jsonify(t_dict)
+#     return jsonify(game_dict)
 
 # @app.route('/update/task/<int:id>', methods=['PUT'])
 # def update_task(id):
