@@ -5,13 +5,11 @@
     {% for game in list_game %}
         <p>
             <br>
-            # {{ game.id }}
-            <br>
             Game Title: {{ game.game_name }}
             <br>
-            Release Date: {{ console.release_date }}
+            Release Date: {{ game.date }}
             <br>
-            Platform: {{ game.console_name }}
+            Platform: {{ console }}
             <br>
             Summary: {{ game.description }}
             <br>
