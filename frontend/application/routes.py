@@ -20,13 +20,18 @@ def add_game():
     
     for console in json["cdb"]:
         form.console.choices.append(
-            (plant["id"], console["name"])
+            (console["id"], console["name"])
         )
 
     if request.method == "POST":
         response = requests.post(
             f"http://{backend_host}/add/game",
-            json={"name": form.name.data}
+            json={
+                "name": form.name.data,
+                "release_date": form.date.data,
+                "console": form.console.data,
+                "description": form.console.data
+                }
             )
         app.logger.info(f"Response: {response.text}")
         return redirect(url_for('home'))

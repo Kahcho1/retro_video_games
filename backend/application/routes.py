@@ -21,6 +21,7 @@ def add_game():
 #     package = request.json
 
 #     new_console = Console(
+#         id=package["id"],
 #         console_name=package["console_name"], 
 #         date=package["date"]
 #         )
