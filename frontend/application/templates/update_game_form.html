@@ -2,15 +2,28 @@
 
 {% block body %}
 <p> 
-    <b>Current task description:</b> {{ task.description }}
+    <b>Current task description:</b> {{ game.game_name }}
 </p>
 
 <div class='form'>
     <form method='POST' action=''>
         {{ form.hidden_tag() }}
-        {{ form.desc.label }} {{ form.desc }}
+        {{ form.name.label }} {{ form.name }}
+        <br>
+        <br>
+        {{ form.date.label }} {{ form.date }}
+        <br>
+        <br>
+        {{ form.console.label }} {{ form.console }}
+        <br>
+        <br>
+        {{ form.description.label }}
+        <br>
+        {{ form.description }}
+        <br>
         <br>
         {{ form.submit }}
+        <br>
         <br>
     </form>
 </div>
