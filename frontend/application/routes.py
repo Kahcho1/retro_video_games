@@ -16,6 +16,13 @@ def home():
 def add_game():
     form = GamesForm()
 
+    consoles = requests.get(f"http://{backend}/read/cdb").json()
+    
+    for console in json["cdb"]:
+        form.console.choices.append(
+            (plant["id"], console["name"])
+        )
+
     if request.method == "POST":
         response = requests.post(
             f"http://{backend_host}/add/game",
@@ -24,21 +31,21 @@ def add_game():
         app.logger.info(f"Response: {response.text}")
         return redirect(url_for('home'))
 
-    return render_template("create_game_form.html", title="Adding new game entry", form=form)
+    return render_template("create_game_form.html", title="New Game Entry", form=form)
 
-@app.route('/add/platform', methods=['GET', 'POST'])
-def add_platform():
-    form = ConsoleForm()
+# @app.route('/add/platform', methods=['GET', 'POST'])
+# def add_platform():
+#     form = ConsoleForm()
 
-    if request.method == "POST":
-        response = requests.post(
-            f"http://{backend_host}/add/platform",
-            json={"name": form.name.data}
-            )
-        app.logger.info(f"Response: {response.text}")
-        return redirect(url_for('home'))
+#     if request.method == "POST":
+#         response = requests.post(
+#             f"http://{backend_host}/add/platform",
+#             json={"name": form.name.data}
+#             )
+#         app.logger.info(f"Response: {response.text}")
+#         return redirect(url_for('home'))
 
-    return render_template("create_console_form.html", title="Adding a platform", form=form)
+#     return render_template("create_console_form.html", title="New Console Entry", form=form)
 
 # @app.route('/update/task/<int:id>', methods=['GET', 'POST'])
 # def update_task(id):

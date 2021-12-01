@@ -5,10 +5,21 @@
     <form method='POST' action=''>
         {{ form.hidden_tag() }}
         {{ form.name.label }} {{ form.name }}
-        {{ form.description.label }} {{ form.description }}
+        <br>
+        <br>
         {{ form.date.label }} {{ form.date }}
         <br>
+        <br>
+        {{ form.console.label }} {{ form.console }}
+        <br>
+        <br>
+        {{ form.description.label }}
+        <br>
+        {{ form.description }}
+        <br>
+        <br>
         {{ form.submit }}
+        <br>
         <br>
     </form>
 </div>

@@ -22,7 +22,7 @@
     {% endfor %}
 
     <h2>List of Consoles</h2>
-    {% for console in list_console %}
+    {#  <!--  {% for console in list_console %}
     <p>
         <br>
         # {{ console.id }}
@@ -31,10 +31,10 @@
         <br>
         Release Date: {{ console.release_date }}
         <br>
-    {#  <!-- <a href="{{ url_for('update_task', id=console.id) }}">Edit Console</a> &ensp;&ensp;&ensp;
+         <a href="{{ url_for('update_task', id=console.id) }}">Edit Console</a> &ensp;&ensp;&ensp;
         <br><br>
-        <a href="{{ url_for('delete', id=console.id) }}">Delete Console</a> --> #}
+        <a href="{{ url_for('delete', id=console.id) }}">Delete Console</a>
     </p>
-    {% endfor %}
+    {% endfor %} --> #}
 
 {% endblock body %}
