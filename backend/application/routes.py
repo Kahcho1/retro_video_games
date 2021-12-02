@@ -9,7 +9,8 @@ def add_game():
     new_game = Games(
         game_name=package["name"], 
         description=package["description"], 
-        date=package["release_date"]
+        date=package["release_date"],
+        consoles_id=package["console"]
     )
     db.session.add(new_game)
     db.session.commit()
@@ -20,7 +21,6 @@ def add_platform():
     package = request.json
 
     new_console = Console(
-        id=package["id"],
         console_name=package["name"], 
         date=package["release_date"]
     )
@@ -39,7 +39,8 @@ def read_game():
                 "id": game.id,
                 "name": game.game_name,
                 "release_date": game.date,
-                "description": game.description
+                "description": game.description,
+                "console": game.console.console_name
             }
         )
     return jsonify(game_dict)
@@ -60,7 +61,7 @@ def read_console():
                 "description": game.description
             }
         )
-        game_dict["console"].append(
+        console_dict["console"].append(
             {
                 "id": console.id,
                 "name": console.console_name,
@@ -97,9 +98,9 @@ def delete(id):
     db.session.commit()
     return Response(f"{game.game_name} has been deleted!", mimetype='text/plain')
 
-# @app.route('/delete/platform/<int:id>', methods=['DELETE'])
-# def delete(id):
-#     console = Console.query.get(id)
-#     db.session.delete(console)
-#     db.session.commit()
-#     return Response(f"{console.console_name} has been deleted!", mimetype='text/plain')
+@app.route('/delete/platform/<int:id>', methods=['DELETE'])
+def delete_platform(id):
+    console = Console.query.get(id)
+    db.session.delete(console)
+    db.session.commit()
+    return Response(f"{console.console_name} has been deleted!", mimetype='text/plain')

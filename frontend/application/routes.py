@@ -83,3 +83,9 @@ def delete(id):
     response = requests.delete(f"http://{backend_host}/delete/game/{id}")
     app.logger.info(f"Response: {response.text}")
     return redirect(url_for('home'))
+
+@app.route('/delete/platform/<int:id>')
+def delete_platform(id):
+    response = requests.delete(f"http://{backend_host}/delete/platform/{id}")
+    app.logger.info(f"Response: {response.text}")
+    return redirect(url_for('home_console'))

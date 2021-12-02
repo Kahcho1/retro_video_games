@@ -3,18 +3,14 @@
 {% block body %}
     <h2>List of Consoles</h2>
      {% for console in all_console %}
-    <p>
+    <p style="font-family:Arial, Helvetica, sans-serif">
         <br>
-        # {{ console.id }}
+    <strong>Name:</strong> {{ console.name }}
         <br>
-        Name: {{ console.console_name }}
+    <strong>Release Date:</strong> {{ console.release_date }}
         <br>
-        Release Date: {{ console.release_date }}
-        <br>
-         <a href="{{ url_for('update_task', id=console.id) }}">Edit Console</a> &ensp;&ensp;&ensp;
-        <br><br>
-        <a href="{{ url_for('delete', id=console.id) }}">Delete Console</a>
-    </p>
+      {#  <!-- <a href="{{ url_for('update_platform', id=console.id) }}">Edit</a> &ensp;&ensp;&ensp; --> #}
+        <a href="{{ url_for('delete_platform', id=console.id) }}">Delete</a>
+    
     {% endfor %}
-
 {% endblock body %}
