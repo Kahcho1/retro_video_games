@@ -33,7 +33,7 @@ def add_game():
                 "name": form.name.data,
                 "release_date": str(form.date.data),
                 "console": form.console.data,
-                "description": form.console.data
+                "description": form.description.data
                 }
             )
         app.logger.info(f"Response: {response.text}")
@@ -60,7 +60,7 @@ def add_platform():
 
 @app.route('/update/game/<int:id>', methods=['GET', 'POST'])
 def update_game(id):
-    form = Games()
+    form = GamesForm()
     game = requests.get(
         f"http://{backend_host}/read/vgdb/{id}").json()
     app.logger.info(f"Games: {game}")
@@ -79,8 +79,8 @@ def update_game(id):
 
     return render_template('update_game_form.html', game=game, form=form)
 
-# @app.route('/delete/game/<int:id>')
-# def delete(id):
-#     response = requests.delete(f"http://{backend_host}/delete/game/{id}")
-#     app.logger.info(f"Response: {response.text}")
-#     return redirect(url_for('home'))
+@app.route('/delete/game/<int:id>')
+def delete(id):
+    response = requests.delete(f"http://{backend_host}/delete/game/{id}")
+    app.logger.info(f"Response: {response.text}")
+    return redirect(url_for('home'))
