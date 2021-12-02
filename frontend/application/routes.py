@@ -12,11 +12,10 @@ def home():
     app.logger.info(f"Game: {all_game}")
     return render_template('index.html', title="Home", all_game=all_game["games"])
 
-# @app.route('/console')
-# def home():
-#     console = requests.get(f"http://{backend_host}/read/cdb").json()
-#     app.logger.info(f"Games: {game}")
-#     return render_template('index_console.html', title="Consoles", game=list_console["cdb"])
+@app.route('/home/console')
+def home_console():
+    all_console = requests.get(f"http://{backend_host}/read/cdb").json()
+    return render_template('index_console.html', title="Consoles", all_console=all_console["console"])
 
 @app.route('/add/game', methods=['GET', 'POST'])
 def add_game():
@@ -33,7 +32,7 @@ def add_game():
                 "name": form.name.data,
                 "release_date": str(form.date.data),
                 "console": form.console.data,
-                "description": form.console.data
+                "description": form.description.data
                 }
             )
         app.logger.info(f"Response: {response.text}")
@@ -54,13 +53,13 @@ def add_platform():
                 }
             )
         app.logger.info(f"Response: {response.text}")
-        return redirect(url_for('home'))
+        return redirect(url_for('home_console'))
 
     return render_template("create_console_form.html", title="New Console Entry", form=form)
 
 @app.route('/update/game/<int:id>', methods=['GET', 'POST'])
 def update_game(id):
-    form = Games()
+    form = GamesForm()
     game = requests.get(
         f"http://{backend_host}/read/vgdb/{id}").json()
     app.logger.info(f"Games: {game}")
@@ -79,8 +78,14 @@ def update_game(id):
 
     return render_template('update_game_form.html', game=game, form=form)
 
-# @app.route('/delete/game/<int:id>')
-# def delete(id):
-#     response = requests.delete(f"http://{backend_host}/delete/game/{id}")
-#     app.logger.info(f"Response: {response.text}")
-#     return redirect(url_for('home'))
+@app.route('/delete/game/<int:id>')
+def delete(id):
+    response = requests.delete(f"http://{backend_host}/delete/game/{id}")
+    app.logger.info(f"Response: {response.text}")
+    return redirect(url_for('home'))
+
+@app.route('/delete/platform/<int:id>')
+def delete_platform(id):
+    response = requests.delete(f"http://{backend_host}/delete/platform/{id}")
+    app.logger.info(f"Response: {response.text}")
+    return redirect(url_for('home_console'))

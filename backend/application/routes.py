@@ -7,9 +7,10 @@ def add_game():
     package = request.json
 
     new_game = Games(
-        name=package["name"], 
+        game_name=package["name"], 
         description=package["description"], 
-        date=package["date"]
+        date=package["release_date"],
+        consoles_id=package["console"]
     )
     db.session.add(new_game)
     db.session.commit()
@@ -20,9 +21,8 @@ def add_platform():
     package = request.json
 
     new_console = Console(
-        id=package["id"],
-        console_name=package["console_name"], 
-        date=package["date"]
+        console_name=package["name"], 
+        date=package["release_date"]
     )
     db.session.add(new_console)
     db.session.commit()
@@ -34,22 +34,13 @@ def read_game():
     game_dict = {"games": []}
 
     for game in list_game:
-        console = []
-        for console in game.console:
-            console.append(
-            {
-                "id": console.id,
-                "name": console.console_name,
-                "release_date": console.date
-            }
-        )
         game_dict["games"].append(
             {
                 "id": game.id,
                 "name": game.game_name,
                 "release_date": game.date,
                 "description": game.description,
-                "console": console
+                "console": game.console.console_name
             }
         )
     return jsonify(game_dict)
@@ -60,11 +51,22 @@ def read_console():
     console_dict = {"console": []}
 
     for console in list_console:
-        game_dict["console"].append(
+        games = []
+        for game in console.games:
+            games.append(
+            {
+                "id": game.id,
+                "name": game.game_name,
+                "release_date": game.date,
+                "description": game.description
+            }
+        )
+        console_dict["console"].append(
             {
                 "id": console.id,
                 "name": console.console_name,
-                "release_date": console.date
+                "release_date": console.date,
+                "games": games
             }
         )
     return jsonify(console_dict)
@@ -96,9 +98,9 @@ def delete(id):
     db.session.commit()
     return Response(f"{game.game_name} has been deleted!", mimetype='text/plain')
 
-# @app.route('/delete/platform/<int:id>', methods=['DELETE'])
-# def delete(id):
-#     console = Console.query.get(id)
-#     db.session.delete(console)
-#     db.session.commit()
-#     return Response(f"{console.console_name} has been deleted!", mimetype='text/plain')
+@app.route('/delete/platform/<int:id>', methods=['DELETE'])
+def delete_platform(id):
+    console = Console.query.get(id)
+    db.session.delete(console)
+    db.session.commit()
+    return Response(f"{console.console_name} has been deleted!", mimetype='text/plain')
