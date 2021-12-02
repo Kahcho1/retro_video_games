@@ -3,6 +3,21 @@ from flask_testing import TestCase
 from application import app, db
 from application.models import Tasks
 
+test_game = {
+                "id": 1,
+                "name": "Final Fantasy VIII",
+                "release_date": 11/2/1999,
+                "description": "Whatever",
+                "console": []
+            }
+
+test_console = {
+
+                "id": 1,
+                "name": "N64",
+                "release_date": 26/9/1996
+                }
+
 class TestBase(TestCase):
     def create_app(self):
 
@@ -16,63 +31,48 @@ class TestBase(TestCase):
 
     def setUp(self):
         db.create_all()
-        db.session.add(Games(name="Run unit tests"))
+        db.session.add(Games(name="Test Name", release_date=15/1/1994, description="Run Test unit", console=[]))
         db.session.commit
 
     def tearDown(self):
         db.session.remove()
         db.drop_all()
 
-class TestViews(TestBase): # Testing successful route response
-    def test_home_get(self):
-        response = self.client.get(url_for('home'))
-        self.assertEqual(response.status_code, 200)
-
-    def test_create_get(self):
-        response = self.client.get(url_for('add_game'))
-        self.assertEqual(response.status_code, 200)
-
-    def test_create_gets(self):
-        response = self.client.get(url_for('add_platform'))
-        self.assertEqual(response.status_code, 200)
-
-    def test_read_get(self):
-        response = self.client.get(url_for('read_vgdb'))
-        self.assertEqual(response.status_code, 200)
-
-    def test_read_gets(self):
-        response = self.client.get(url_for('read_cdb'))
-        self.assertEqual(response.status_code, 200)
- 
-
-    def test_update_get(self):
-        response = self.client.get(url_for('update_game', id=1))
-        self.assertEqual(response.status_code, 200)
-
-    def test_update_get(self):
-        response = self.client.get(url_for('update_platform', id=1))
-        self.assertEqual(response.status_code, 200)
-
 class TestRead(TestBase):
 
-    def test_read_home_tasks(self):
-        response = self.client.get(url_for('home'))
-        self.assertIn(b"Run unit tests", response.data)
+    def test_read_all_games(self):
+        response = self.client.get(url_for('read_vgdb'))
+        all_games = { "games": {test_game} }
+        self.assertEquals(all_games, response.json)
     
     def test_read_tasks_dict(self):
-        response = self.client.get(url_for('read_task'))
-        self.assertIn(b"Run unit tests", response.data)
+        response = self.client.get(url_for('read_cdb'))
+        all_console = { "console": {test_console} }
+        self.assertEquals(all_console, response.data)
     
 class TestCreate(TestBase):
-    def test_create_task(self):
+    def test_add_game(self):
+        response = self.client.post(
+            url_for('add_platform'),
+            json={
+                "name": "Final Fantasy VII",
+                "description": "lets mosey", 
+                "release_date": 31/1/1997, 
+                "consoles_id": 2
+                },
+            follow_redirects=True
+            )
+        self.assertEqual(b"Add test game entry", response.data)
+        self.assertEqual(Games.query.get(2).name, "Testing add games")
+
+    def test_add_platform(self):
         response = self.client.post(
             url_for('create_task'),
             data={"desc": "Testing create task"},
             follow_redirects=True
             )
-        self.assertIn(b"Testing create task", response.data)
-        test_create = Tasks.query.filter_by(desc="Testing create task").first()
-        self.assertEqual(test_create.desc, "Testing create task")
+        self.assertEqual(b"Add test game entry", response.data)
+        self.assertEqual(Console.query.get(2).name, "Testing add games")
 
 class TestUpdate(TestBase):
     def test_update_task(self):

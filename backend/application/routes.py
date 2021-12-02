@@ -78,7 +78,7 @@ def update_game(id):
     game.game_name = package["name"]
     game.date = package["release_date"]
     game.description = package["description"]
-    game.console = package["console"]
+    game.console.console_name = package["console"]
     db.session.commit()
     return Response(f"{game.game_name} information has been updated!.", mimetype='text/plain')
 

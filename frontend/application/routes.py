@@ -62,7 +62,6 @@ def update_game(id):
     form = GamesForm()
     game = requests.get(
         f"http://{backend_host}/read/vgdb/{id}").json()
-    app.logger.info(f"Games: {game}")
 
     if request.method == "POST":
         response = requests.put(
@@ -71,7 +70,7 @@ def update_game(id):
                 "name": form.name.data,
                 "release_date": str(form.date.data),
                 "console": form.console.data,
-                "description": form.console.data
+                "description": form.description.data
                 }
             )
         return redirect(url_for('home'))
