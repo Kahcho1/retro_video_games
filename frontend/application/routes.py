@@ -12,11 +12,10 @@ def home():
     app.logger.info(f"Game: {all_game}")
     return render_template('index.html', title="Home", all_game=all_game["games"])
 
-# @app.route('/console')
-# def home():
-#     console = requests.get(f"http://{backend_host}/read/cdb").json()
-#     app.logger.info(f"Games: {game}")
-#     return render_template('index_console.html', title="Consoles", game=list_console["cdb"])
+@app.route('/home/console')
+def home_console():
+    all_console = requests.get(f"http://{backend_host}/read/cdb").json()
+    return render_template('index_console.html', title="Consoles", all_console=all_console["console"])
 
 @app.route('/add/game', methods=['GET', 'POST'])
 def add_game():
@@ -54,7 +53,7 @@ def add_platform():
                 }
             )
         app.logger.info(f"Response: {response.text}")
-        return redirect(url_for('home'))
+        return redirect(url_for('home_console'))
 
     return render_template("create_console_form.html", title="New Console Entry", form=form)
 
