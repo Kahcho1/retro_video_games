@@ -44,10 +44,10 @@ class TestViews(TestBase):
             self.assert200(response)
 
     def test_add_get(self):
-        response = self.client.get(url_for('add_game'))
+        response = self.client.get(url_for('add_game'), ('read_cdb'))
         self.assert200(response)
 
     def test_add_console_get(self):
-        response = self.client.get(url_for('add_game'))
+        response = self.client.get(url_for('add_platform'))
         self.assert200(response)
 
