@@ -5,7 +5,7 @@ services:
       # replicas: 1
     build: ./frontend
     image: retro_video_games-frontend:latest
-    container_name: retro_video_games-frontend
+    container_name: retro_video_games_frontend
     ports:
     - target: 5000
       published: 80
@@ -14,7 +14,7 @@ services:
       # replicas: 1
     build: ./backend
     image: retro_video_games-backend:latest
-    container_name: retro_video_games-backend
+    container_name: retro_video_games_backend
     environment:
       DATABASE_URI:
       CREATE_SCHEMA:

@@ -10,7 +10,7 @@ backend_host = "retro_video_games_backend:5000"
 def home():
     all_game = requests.get(f"http://{backend_host}/read/vgdb").json()
     app.logger.info(f"Game: {all_game}")
-    return render_template('index.html', title="Home", all_game=list_game["games"])
+    return render_template('index.html', title="Home", all_game=all_game["games"])
 
 # @app.route('/console')
 # def home():
@@ -58,26 +58,26 @@ def add_platform():
 
     return render_template("create_console_form.html", title="New Console Entry", form=form)
 
-# @app.route('/update/game/<int:id>', methods=['GET', 'POST'])
-# def update_game(id):
-#     form = Games()
-#     game = requests.get(
-#         f"http://{backend_host}/read/vgdb/{id}").json()
-#     app.logger.info(f"Games: {game}")
+@app.route('/update/game/<int:id>', methods=['GET', 'POST'])
+def update_game(id):
+    form = Games()
+    game = requests.get(
+        f"http://{backend_host}/read/vgdb/{id}").json()
+    app.logger.info(f"Games: {game}")
 
-#     if request.method == "POST":
-#         response = requests.put(
-#             f"http://{backend_host}/update/game/{id}",
-#             json={
-#                 "name": form.name.data,
-#                 "release_date": str(form.date.data),
-#                 "console": form.console.data,
-#                 "description": form.console.data
-#                 }
-#             )
-#         return redirect(url_for('home'))
+    if request.method == "POST":
+        response = requests.put(
+            f"http://{backend_host}/update/game/{id}",
+            json={
+                "name": form.name.data,
+                "release_date": str(form.date.data),
+                "console": form.console.data,
+                "description": form.console.data
+                }
+            )
+        return redirect(url_for('home'))
 
-#     return render_template('update_game_form.html', game=game, form=form)
+    return render_template('update_game_form.html', game=game, form=form)
 
 # @app.route('/delete/game/<int:id>')
 # def delete(id):
