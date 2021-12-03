@@ -8,7 +8,7 @@ from datetime import datetime
 test_game = {
                 "id": 1,
                 "name": "whatever",
-                "release_date": datetime(1991,1,11),
+                "release_date": str(datetime(1991,1,11)),
                 "console": "PST",
                 "description": "Test Test Test"
             }
@@ -16,7 +16,7 @@ test_game = {
 test_console = {
                     "id": 1,
                     "name": "Test console",
-                    "release_date": datetime(1992,2,22)
+                    "release_date": str(datetime(1992,2,22))
                 }
 
 class TestBase(TestCase):
@@ -52,11 +52,19 @@ class TestViews(TestBase):
         response = self.client.get(url_for('add_platform'))
         self.assert200(response)
 
+    def test_update_get(self):
+        with requests_mock.Mocker() as m:
+            m.get(f"http://{backend_host}/read/vgdb/1", json=test_game)
+            response = self.client.get(url_for('update_game', id=1))
+            self.assert200(response)
 
-
+    def test_update_console_get(self):
+        with requests_mock.Mocker() as m:
+            m.get(f"http://{backend_host}/read/cdb/1", json=test_console)
+            response = self.client.get(url_for('update_platform', id=1))
+            self.assert200(response)
 
 class TestRead(TestBase):
-
     def test_read_home_game(self):
         with requests_mock.Mocker() as m:
             all_games = {"games": [test_game]}
@@ -80,20 +88,21 @@ class TestCreate(TestBase):
                     {
                         "id": 2,
                         "name": "let's mosey",
-                        "release_date": datetime(1992,2,22),
-                        "console": "N10",
+                        "release_date": str(datetime(1992,2,22)),
+                        "console": [],
                         "description": "Test descrip"
                     }
                 ]
             }
             m.post(f"http://{backend_host}/add/game", text="Testing add games")
-            m.get(f"http://{backend_host}/read/cdb", json=all_games)
+            m.get(f"http://{backend_host}/read/vgdb", json=all_games)
             response = self.client.post(
                 url_for('add_game'),
                 json={"name": "Testing Game Name"},
                 follow_redirects=True
             )
             self.assertIn(b"Testing Game Name ", response.data)
+            
 
     def test_add_console(self):
         with requests_mock.Mocker() as m:
@@ -103,7 +112,7 @@ class TestCreate(TestBase):
                     {
                         "id": 2,
                         "name": "Test PSX",
-                        "release_date": datetime(1996/2/22)
+                        "release_date": str(datetime(1996,2,22))
                     }
                 ]
             }
@@ -116,9 +125,32 @@ class TestCreate(TestBase):
             )
             self.assertIn(b"Test PSX", response.data)
 
+class TestUpdate(TestBase):
+    def test_update_game(self):
+        with requests_mock.Mocker() as m:
+            m.get(f"http://{backend_host}/read/vgdb/1", json=test_game)
+            m.put(f"http://{backend_host}/update/game/1", text="Testing response")
+            test_game["name"] = "Test update game"
+            m.get(f"http://{backend_host}/read/vgdb", json={ "games": test_console })
+            response = self.client.get(
+                url_for('update_game', id=1),
+                data={"name": "Test update game"},
+                follow_redirects=True
+            )
+            self.assertIn(b"Test update game", response.data)
 
-
-
+    def test_update_console(self):
+        with requests_mock.Mocker() as m:
+            m.get(f"http://{backend_host}/read/cdb/1", json=test_console)
+            m.put(f"http://{backend_host}/update/platform/1", text="Testing response")
+            test_console["name"] = "Test update with console"
+            m.get(f"http://{backend_host}/read/cdb", json={ "console": test_game })
+            response = self.client.get(
+                url_for('update_platform', id=1),
+                data={"name": "Test update with console"},
+                follow_redirects=True
+            )
+            self.assertIn(b"Test update with console", response.data)
 
 class TestDelete(TestBase):
     def test_delete_games(self):

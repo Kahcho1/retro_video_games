@@ -20,8 +20,8 @@ def home_console():
 @app.route('/add/game', methods=['GET', 'POST'])
 def add_game():
     form = GamesForm()
-    
     console = requests.get(f"http://{backend_host}/read/cdb").json()
+    
     for console in console["console"]:
         form.console.choices.append((console["id"], console["name"])) 
 
