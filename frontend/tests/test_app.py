@@ -3,7 +3,7 @@ from flask_testing import TestCase
 from application import app
 from application.routes import backend_host
 import requests_mock
-import datetime from datetime
+from datetime import datetime
 
 test_game = {
                 "id": 1,
@@ -126,7 +126,7 @@ class TestDelete(TestBase):
             m.delete(f"http://{backend_host}/delete/game/1")
             m.get(f"http://{backend_host}/read/vgdb", json={ "games": [] })
             response = self.client.get(
-                url_for("delete_game", id=1),
+                url_for("delete", id=1),
                 follow_redirects=True
             )
             self.assertNotIn(b"Test Game Name", response.data)

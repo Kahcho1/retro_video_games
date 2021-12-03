@@ -8,8 +8,8 @@ test_game = {
                 "id": 1,
                 "name": "Final Fantasy VIII",
                 "release_date": datetime(1999,2,11),
-                "description": "Whatever",
-                "console": []
+                "console": "SNES",
+                "description": "Whatever"
             }
 
 test_console = {
@@ -40,16 +40,24 @@ class TestBase(TestCase):
 
 class TestRead(TestBase):
 
-    def test_read_all_games(self):
+    def test_read_vgdb(self):
         response = self.client.get(url_for('read_game'))
-        all_games = { "games": test_game }
+        all_games = { "games": [test_game]}
         self.assertEquals(all_games, response.json)
     
-    def test_read_all_console(self):
+    def test_read_cdb(self):
         response = self.client.get(url_for('read_console'))
-        all_console = { "console": test_console }
-        self.assertEquals(all_console, response.data)
+        all_console = { "console": [test_console]}
+        self.assertEquals(all_console, response.json)
+
+    def test_read_one_game(self):
+        response = self.client.get(url_for("read_game_one", id=1))
+        self.assertEquals(all_games, response.json)
     
+    def test_read_one_console(self):
+        response = self.client.get(url_for("read_console_one", id=1))
+        self.assertEquals(all_console, response.json)
+
 class TestCreate(TestBase):
     def test_add_game(self):
         response = self.client.post(
@@ -57,8 +65,8 @@ class TestCreate(TestBase):
             json={
                 "name": "Final Fantasy VII",
                 "description": "lets mosey", 
-                "release_date": datetime(1997,1,31), 
-                "console": []
+                "release_date": datetime(1997,7,17), 
+                "console": "PSZ"
                 },
             follow_redirects=True
             )
@@ -83,8 +91,8 @@ class TestCreate(TestBase):
 
 class TestDelete(TestBase):
     def test_delete_game(self):
-        response = self.client.delete(url_for("delete_game", id=1))
-        self.assertEquals(b"Delete game with ID 1", response.data)
+        response = self.client.delete(url_for("delete", id=1))
+        self.assertEquals(b"Test Name has been deleted!", response.data)
         self.assertIsNone(Games.query.get(1))
 
     def test_delete_platform(self):
