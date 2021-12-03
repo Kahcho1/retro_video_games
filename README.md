@@ -12,7 +12,7 @@
   - [Risk Assessment](#risk-assessment)
   - [Future Improvements](#future-improvements)
     - [More Testing](#more-testing)
-    - [Block before 1990 and after 1999](#block-before-1990-and-after-1999)
+    - [Block data entry for certain dates](#block-data-entry-for-certain-dates)
     - [Better UI](#better-ui)
   - [Misc](#misc)
 
