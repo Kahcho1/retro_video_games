@@ -73,10 +73,69 @@ class TestRead(TestBase):
 class TestCreate(TestBase):
     def test_add_game(self):
         with requests_mock.Mocker() as m:
-        m.post(f"http://{backend_host}/add/game", data="Testing add")
-        response = self.client.post(
-            url_for('add_game'),
-            data={"name": "Testing Game Name"},
-            follow_redirects=True
+            all_games = { "games":
+                [
+                    test_game,
+                    {
+                        "id": 2,
+                        "name": "let's mosey",
+                        "release_date": 22/2/1992,
+                        "console": "N10",
+                        "description": "Test descrip"
+                    }
+                ]
+            }
+            m.post(f"http://{backend_host}/add/game", text="Testing add games")
+            m.get(f"http://{backend_host}/read/cdb", json=all_games)
+            response = self.client.post(
+                url_for('add_game'),
+                json={"name": "Testing Game Name"},
+                follow_redirects=True
             )
-        self.assertIn(b"Testing Game Name", response.data)
+            self.assertIn(b"Testing Game Name ", response.data)
+
+    def test_add_console(self):
+        with requests_mock.Mocker() as m:
+            all_console = { "console":
+                [
+                    test_console,
+                    {
+                        "id": 2,
+                        "name": "Test PSX",
+                        "release_date": 22/2/1996
+                    }
+                ]
+            }
+            m.post(f"http://{backend_host}/add/platform", text="Testing add console")
+            m.get(f"http://{backend_host}/read/cdb", json=all_console)
+            response = self.client.post(
+                url_for('add_platform'),
+                json={"name": "Test PSX"},
+                follow_redirects=True
+            )
+            self.assertIn(b"Test PSX", response.data)
+
+
+
+
+
+class TestDelete(TestBase):
+    def test_delete_games(self):
+        with requests_mock.Mocker() as m:
+            m.delete(f"http://{backend_host}/delete/game/1")
+            m.get(f"http://{backend_host}/read/vgdb", json={ "games": [] })
+            response = self.client.get(
+                url_for("delete_game", id=1),
+                follow_redirects=True
+            )
+            self.assertNotIn(b"Test Game Name", response.data)
+
+    def test_delete_console(self):
+        with requests_mock.Mocker() as m:
+            m.delete(f"http://{backend_host}/delete/platform/1")
+            m.get(f"http://{backend_host}/read/cdb", json={ "console": []})
+            response = self.client.get(
+                url_for("delete_platform", id=1),
+                follow_redirects=True
+            )
+            self.assertNotIn(b"Test console Name", response.data)
