@@ -62,6 +62,10 @@ def update_game(id):
     form = GamesForm()
     game = requests.get(f"http://{backend_host}/read/vgdb/{id}").json()
 
+    console = requests.get(f"http://{backend_host}/read/cdb").json()
+    for console in console["console"]:
+        form.console.choices.append((console["id"], console["name"]))
+
     if request.method == "POST":
         response = requests.put(
             f"http://{backend_host}/update/game/{id}",
