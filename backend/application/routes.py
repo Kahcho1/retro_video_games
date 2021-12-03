@@ -71,6 +71,39 @@ def read_console():
         )
     return jsonify(console_dict)
 
+@app.route('/read/vgdb/<int:id>', methods=['GET'])
+def read_game_one(id):
+    list_game = Games.query.get(id)
+    game_dict = {"games": []}
+
+    for game in list_game:
+        game_dict["games"].append(
+            {
+                "id": game.id,
+                "name": game.game_name,
+                "release_date": game.date,
+                "description": game.description,
+                "console": game.console.console_name
+            }
+        )
+    return jsonify(game_dict)
+
+@app.route('/read/cdb/<int:id>', methods=['GET'])
+def read_console_one(id):
+    list_console = Console.query.get(id)
+    console_dict = {"console": []}
+
+    for console in list_console:
+        console_dict["console"].append(
+            {
+                "id": console.id,
+                "name": console.console_name,
+                "release_date": console.date,
+                "games": games
+            }
+        )
+    return jsonify(console_dict)
+
 @app.route('/update/game/<int:id>', methods=['PUT'])
 def update_game(id):
     package = request.json

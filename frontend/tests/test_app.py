@@ -3,11 +3,12 @@ from flask_testing import TestCase
 from application import app
 from application.routes import backend_host
 import requests_mock
+import datetime from datetime
 
 test_game = {
                 "id": 1,
                 "name": "whatever",
-                "release_date": 11/1/1991,
+                "release_date": datetime(1991,1,11),
                 "console": "PST",
                 "description": "Test Test Test"
             }
@@ -15,7 +16,7 @@ test_game = {
 test_console = {
                     "id": 1,
                     "name": "Test console",
-                    "release_date": 22/2/1992
+                    "release_date": datetime(1992,2,22)
                 }
 
 class TestBase(TestCase):
@@ -79,7 +80,7 @@ class TestCreate(TestBase):
                     {
                         "id": 2,
                         "name": "let's mosey",
-                        "release_date": 22/2/1992,
+                        "release_date": datetime(1992,2,22),
                         "console": "N10",
                         "description": "Test descrip"
                     }
@@ -102,7 +103,7 @@ class TestCreate(TestBase):
                     {
                         "id": 2,
                         "name": "Test PSX",
-                        "release_date": 22/2/1996
+                        "release_date": datetime(1996/2/22)
                     }
                 ]
             }

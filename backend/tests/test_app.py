@@ -42,12 +42,12 @@ class TestRead(TestBase):
 
     def test_read_all_games(self):
         response = self.client.get(url_for('read_game'))
-        all_games = { "games": {test_game} }
+        all_games = { "games": test_game }
         self.assertEquals(all_games, response.json)
     
     def test_read_all_console(self):
         response = self.client.get(url_for('read_console'))
-        all_console = { "console": {test_console} }
+        all_console = { "console": test_console }
         self.assertEquals(all_console, response.data)
     
 class TestCreate(TestBase):
