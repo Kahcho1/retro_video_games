@@ -1,23 +1,30 @@
 {% extends "layout.html" %}
 
 {% block body %}
-<p> 
-    <b>Game entry being updated:</b> {{ game.game_name }}
+<p style="font-family:Arial, Helvetica, sans-serif"> 
+    <b>Game entry being updated:</b> {{ game.name }}
+    <br>
+    <b>Release Date:</b> {{ game.release_date }}
+    <br>
+    <b>Platfotm:</b> {{ game.console }}
+    <br>
+    <b>Summary:</b> {{ game.description }}
+    <br>
 </p>
-
+<hr>
 <div class='form'>
     <form method='POST' action=''>
         {{ form.hidden_tag() }}
-        {{ form.name.label }} {{ form.name }}
+    <b>{{ form.name.label }}</b> {{ form.name }}
         <br>
         <br>
-        {{ form.date.label }} {{ form.date }}
+    <b>{{ form.date.label }}</b> {{ form.date }}
         <br>
         <br>
-        {{ form.console.label }} {{ form.console }}
+    <b>{{ form.console.label }}</b> {{ form.console }}
         <br>
         <br>
-        {{ form.description.label }}
+    <b>{{ form.description.label }}</b>
         <br>
         {{ form.description }}
         <br>

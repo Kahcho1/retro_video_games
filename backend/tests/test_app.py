@@ -86,7 +86,22 @@ class TestCreate(TestBase):
         self.assertEquals(b"Add test console entry", response.data)
         self.assertEquals(Console.query.get(2).console_name, "Testing add console")
 
+class TestUpdate(TestBase):
+    def test_update_game(self):
+        response = self.client.put(
+            url_for('update_game', id=1),
+            json={"name": "Testing update game"},
+        )
+        self.assertEquals(b"Game name with ID 1 has been changed to: Testing update game", response.data)
+        self.assertEqual(Console.query.get(1).name, "Testing update game")
 
+    def test_update_platform(self):
+        response = self.client.put(
+            url_for('update_platform', id=1),
+            json={"name": "Testing update console"},
+        )
+        self.assertEquals(b"Console name with ID 1 has been changed to: Testing update console", response.data)
+        self.assertEqual(Console.query.get(1).name, "Testing update console")
 
 
 class TestDelete(TestBase):
