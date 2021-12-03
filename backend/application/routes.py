@@ -82,13 +82,14 @@ def update_game(id):
     db.session.commit()
     return Response(f"{game.game_name} information has been updated!.", mimetype='text/plain')
 
-# @app.route('/update/platform/<int:id>', methods=['PUT'])
-# def update_platform(id):
-#     package = request.json
-#     console = Console.query.get(id)
-#     console.console_name = package["name"]
-#     db.session.commit()
-#     return Response(f"{console.console_name} information has been updated under Platforms", mimetype='text/plain')
+@app.route('/update/platform/<int:id>', methods=['PUT'])
+def update_platform(id):
+    package = request.json
+    console = Console.query.get(id)
+    console.console_name = package["name"]
+    console.date = package["release_date"]
+    db.session.commit()
+    return Response(f"{console.console_name} information has been updated under Platforms", mimetype='text/plain')
 
 
 @app.route('/delete/game/<int:id>', methods=['DELETE'])
