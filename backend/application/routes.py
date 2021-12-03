@@ -71,6 +71,28 @@ def read_console():
         )
     return jsonify(console_dict)
 
+@app.route('/read/vgdb/<int:id>', methods=['GET'])
+def read_game_one(id):
+    game = Games.query.get(id)
+    game_dict ={
+                "id": game.id,
+                "name": game.game_name,
+                "release_date": game.date,
+                "description": game.description,
+                "console": game.console.console_name
+            }
+    return jsonify(game_dict)
+
+@app.route('/read/cdb/<int:id>', methods=['GET'])
+def read_console_one(id):
+    console = Console.query.get(id)
+    console_dict ={
+                    "id": console.id,
+                    "name": console.console_name,
+                    "release_date": console.date
+                }
+    return jsonify(console_dict)
+
 @app.route('/update/game/<int:id>', methods=['PUT'])
 def update_game(id):
     package = request.json
@@ -82,13 +104,14 @@ def update_game(id):
     db.session.commit()
     return Response(f"{game.game_name} information has been updated!.", mimetype='text/plain')
 
-# @app.route('/update/platform/<int:id>', methods=['PUT'])
-# def update_platform(id):
-#     package = request.json
-#     console = Console.query.get(id)
-#     console.console_name = package["name"]
-#     db.session.commit()
-#     return Response(f"{console.console_name} information has been updated under Platforms", mimetype='text/plain')
+@app.route('/update/platform/<int:id>', methods=['PUT'])
+def update_platform(id):
+    package = request.json
+    console = Console.query.get(id)
+    console.console_name = package["name"]
+    console.date = package["release_date"]
+    db.session.commit()
+    return Response(f"{console.console_name} information has been updated under Platforms", mimetype='text/plain')
 
 
 @app.route('/delete/game/<int:id>', methods=['DELETE'])

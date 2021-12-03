@@ -2,13 +2,19 @@
 
 {% block body %}
 <p> 
-    <b>Current task description:</b> {{ task.description }}
+    <b>Game entry being updated:</b> {{ console.console_name }}
+    <br>
+    <br>
+    <b>Release Date:</b> {{ console.date }}
 </p>
 
 <div class='form'>
     <form method='POST' action=''>
         {{ form.hidden_tag() }}
-        {{ form.desc.label }} {{ form.desc }}
+        {{ form.name.label }} {{ form.name }}
+        <br>
+        <br>
+        {{ form.date.label }} {{ form.date }}
         <br>
         {{ form.submit }}
         <br>

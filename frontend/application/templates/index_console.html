@@ -9,7 +9,7 @@
         <br>
     <strong>Release Date:</strong> {{ console.release_date }}
         <br>
-      {#  <!-- <a href="{{ url_for('update_platform', id=console.id) }}">Edit</a> &ensp;&ensp;&ensp; --> #}
+        <a href="{{ url_for('update_platform', id=console.id) }}">Edit</a> &ensp;&ensp;&ensp;
         <a href="{{ url_for('delete_platform', id=console.id) }}">Delete</a>
     
     {% endfor %}

@@ -1,0 +1,15 @@
+#     def test_update_get(self):
+        # with requests_mock.Mocker() as m:
+        #     m.get(f"http://{backend_host}/read/vgdb/1", json=all_games)
+        #     response = self.client.get(url_for('update_game'))
+        #     self.assert200(response)
+
+
+# class TestUpdate(TestBase):
+#     def test_update_task(self):
+#         response = self.client.post(
+#             url_for('update_task', id=1),
+#             data={"desc": "Testing update task"},
+#             follow_redirects=True
+#             )
+#         self.assertIn(b"Testing update task", response.data)

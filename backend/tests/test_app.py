@@ -1,21 +1,22 @@
 from flask import url_for
 from flask_testing import TestCase
 from application import app, db
-from application.models import Tasks
+from application.models import Games, Console
+from datetime import datetime
 
 test_game = {
                 "id": 1,
                 "name": "Final Fantasy VIII",
-                "release_date": 11/2/1999,
-                "description": "Whatever",
-                "console": []
+                "release_date": datetime(1999,2,11),
+                "console": "SNES",
+                "description": "Whatever"
             }
 
 test_console = {
 
                 "id": 1,
                 "name": "N64",
-                "release_date": 26/9/1996
+                "release_date": datetime(1996,9,20)
                 }
 
 class TestBase(TestCase):
@@ -31,8 +32,7 @@ class TestBase(TestCase):
 
     def setUp(self):
         db.create_all()
-        db.session.add(Games(name="Test Name", release_date=15/1/1994, description="Run Test unit", console=[]))
-        db.session.commit
+        db.session.add(Games(game_name="Test Name", date=datetime(1994,1,15), description="Run Test unit"))
 
     def tearDown(self):
         db.session.remove()
@@ -40,69 +40,62 @@ class TestBase(TestCase):
 
 class TestRead(TestBase):
 
-    def test_read_all_games(self):
-        response = self.client.get(url_for('read_vgdb'))
-        all_games = { "games": {test_game} }
+    def test_read_vgdb(self):
+        response = self.client.get(url_for('read_game'))
+        all_games = { "games": [test_game]}
         self.assertEquals(all_games, response.json)
     
-    def test_read_tasks_dict(self):
-        response = self.client.get(url_for('read_cdb'))
-        all_console = { "console": {test_console} }
-        self.assertEquals(all_console, response.data)
+    def test_read_cdb(self):
+        response = self.client.get(url_for('read_console'))
+        all_console = { "console": [test_console]}
+        self.assertEquals(all_console, response.json)
+
+    def test_read_one_game(self):
+        response = self.client.get(url_for("read_game_one", id=1))
+        self.assertEquals(all_games, response.json)
     
+    def test_read_one_console(self):
+        response = self.client.get(url_for("read_console_one", id=1))
+        self.assertEquals(all_console, response.json)
+
 class TestCreate(TestBase):
     def test_add_game(self):
         response = self.client.post(
-            url_for('add_platform'),
+            url_for('add_game'),
             json={
                 "name": "Final Fantasy VII",
                 "description": "lets mosey", 
-                "release_date": 31/1/1997, 
-                "consoles_id": 2
+                "release_date": datetime(1997,7,17), 
+                "console": "PSZ"
                 },
             follow_redirects=True
             )
-        self.assertEqual(b"Add test game entry", response.data)
-        self.assertEqual(Games.query.get(2).name, "Testing add games")
+        self.assertEquals(b"Add test game entry", response.data)
+        self.assertEquals(Games.query.get(2).game_name, "Testing add games")
 
     def test_add_platform(self):
         response = self.client.post(
-            url_for('create_task'),
-            data={"desc": "Testing create task"},
+            url_for('add_platform'),
+            json={
+                "id": 2,
+                "name": "Test Console",
+                "release_date": datetime(1995,5,15)
+                },
             follow_redirects=True
             )
-        self.assertEqual(b"Add test game entry", response.data)
-        self.assertEqual(Console.query.get(2).name, "Testing add games")
+        self.assertEquals(b"Add test console entry", response.data)
+        self.assertEquals(Console.query.get(2).console_name, "Testing add console")
 
-class TestUpdate(TestBase):
-    def test_update_task(self):
-        response = self.client.post(
-            url_for('update_task', id=1),
-            data={"desc": "Testing update task"},
-            follow_redirects=True
-            )
-        self.assertIn(b"Testing update task", response.data)
+
+
 
 class TestDelete(TestBase):
-    def test_delete_task(self):
-        response = self.client.get(
-            url_for("delete", id=1),
-            follow_redirects=True
-        )
-        self.assertNotIn(b"Run unit tests", response.data) # NotIn meaning deleted
+    def test_delete_game(self):
+        response = self.client.delete(url_for("delete", id=1))
+        self.assertEquals(b"Test Name has been deleted!", response.data)
+        self.assertIsNone(Games.query.get(1))
 
-class TestComp(TestBase):
-    def test_comp_task(self):
-        response = self.client.get(
-            url_for("status", id=1),
-            follow_redirects=True
-        )
-        self.assertEqual(Tasks.query.get(1).comp, True)
-
-class TestIncomp(TestBase):
-    def test_Incomp_task(self):
-        response = self.client.get(
-            url_for("status_incomp", id=1),
-            follow_redirects=True
-        )
-        self.assertEqual(Tasks.query.get(1).comp, False)
+    def test_delete_platform(self):
+        response = self.client.delete(url_for("delete_platform", id=1))
+        self.assertEquals(b"Delete console with ID 1", response.data)
+        self.assertIsNone(Console.query.get(1))
