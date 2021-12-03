@@ -7,7 +7,7 @@ python3 -m venv venv
 source venv/bin/activate
 
 # install pytest, flask_testing and requirements for frontend and backend
-pip install pytest pytest-cov flask_testing
+pip install pytest pytest-cov flask_testing requests_mock
 pip3 install -r frontend/requirements.txt
 pip3 install -r backend/requirements.txt
 
