@@ -17,7 +17,7 @@
 
 
 ### App specification
-![Project Tracking using Git Project board](https://i.imgur.com/a/ld0VT6H.jpg)
+![Project Tracking Board](https://imgur.com/8bN9cyv.jpg)
 
 ### Database
 
