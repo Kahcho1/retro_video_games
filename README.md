@@ -25,6 +25,7 @@ My project will be based on a database which allows user to input data for video
 
 ### Structure of Database
 
+![Entity Relationship Diagram](https://imgur.com/7H2E0gw.jpg)
 
 ### Management Method
 
