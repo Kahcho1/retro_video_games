@@ -4,7 +4,7 @@ services:
     deploy:
       replicas: 3
     build: ./frontend
-    image: ${DOCKER_HUB_CREDS_USR}/retro_video_games-frontend:red
+    image: ${DOCKER_HUB_CREDS_USR}/retro_video_games-frontend:latest
     container_name: retro_video_games_frontend
     ports:
     - target: 5000
