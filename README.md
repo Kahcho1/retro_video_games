@@ -26,6 +26,8 @@ My project will be based on a database which allows user to input data for video
 
 ![Project Tracking Board](https://imgur.com/8bN9cyv.jpg)
 
+The image above shows github project board being used to track the user stories, features and issues. Using the MoSCoW method to sort out and clearly label the issues on the board, helps provide a better understanding on what I need to achieve to build my app. Furthermore, the board has features which detects pushes made and link issues to merges, so it can create an automated proccess of moving the issues along to the correct column: To do > In progress > Done.
+
 ### Database
 
 
