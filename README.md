@@ -1,7 +1,6 @@
 # Retro Video Games 90s Database
 
 ## Table of contents
-- [Retro Video Games 90s Database](#retro-video-games-90s-database)
 - [Table of contents](#table-of-contents)
   - [Project info](#project-info)
     - [Brief](#brief)
