@@ -40,7 +40,7 @@ Show the testing done project.
 ## Future Improvements
 ### More Testing
 
-I to do more testings but I am at an stage where I no longer know what to aim for. I hope that in the future when I do gain more experience, I could return to this project and commit more tests for better coverage/results.
+I would like do more tests but I am at an stage where I no longer know what to aim for. I hope that in the future when I do gain more experience, I could return to this project and commit more tests for better coverage/results.
 
 ### Block before 1990 and after 1999
 
