@@ -27,7 +27,7 @@ My project will be based on a database which allows user to input data for video
 
 ![Entity Relationship Diagram](https://imgur.com/7H2E0gw.jpg)
 
-The image repersents a ERD: entity relationship diagram. This shows the structure of the database, displaying the many features I will be adding to my app. This is a one-to-many diagram between console and games. Meaning, user should be able to put many games under specific console.
+The image represents a ERD: entity relationship diagram. This shows the structure of the database, displaying the many features I will be adding to my app. The app will be based on a one-to-many relationship, between console and games. Meaning, when user enters a specific console, they can assoicate it will as many games as they want.
 
 ### Management Method
 
