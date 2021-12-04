@@ -16,19 +16,21 @@
     - [Better UI](#better-ui)
   - [Misc](#misc)
 
-## Project info
+## Project Info
 ### Brief
 This project will summariezed all the skills and knowledge I have gained throughout my time during the 9 weeks at QA Limited DevOps Skill Bootcamp. For this project I aim to create a web application that shows the fucntiality of CRUD: Create, Read, Update and Delete. Then I am to host the app within a container using Docker and deploy it. This will display my competence at creating a CI/CD pipeline that is automated for test, build and deploying the app.
 
-### App specification
+### App Specification
 My project will be based on a database which allows user to input data for video games that were released during the 90s. It will also show what kind of platform that these games were playable on. Furthermore, if users wanted to attached an comment/summary to the entry, they were allowed to.
 
+### Structure of Database
+
+
+### Management Method
 
 ![Project Tracking Board](https://imgur.com/8bN9cyv.jpg)
 
 The image above shows github project board being used to track the user stories, features and issues. Using the MoSCoW method to sort out and clearly label the issues on the board, helps provide a better understanding on what I need to achieve to build my app. Furthermore, the board has features which detects pushes made and link issues to merges, so it can create an automated proccess of moving the issues along to the correct column: To do > In progress > Done.
-
-### Database
 
 
 ## The CI Pipeline
