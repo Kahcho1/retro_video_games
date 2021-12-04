@@ -56,5 +56,5 @@ Very basic look with basic app features. I wanted to add the abilities to includ
 
 
 ## Misc
-
+Video for demonstrating the CI/CD Pipeline:
 https://drive.google.com/drive/folders/1V8IrSStN_5a9R3Nz6rTeKd0R_dDHrW9J?usp=sharing
