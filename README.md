@@ -7,7 +7,7 @@
     - [Brief](#brief)
     - [App Specification](#app-specification)
     - [Structure of Database](#structure-of-database)
-    - [Management Method](#mangement-method)
+    - [Management Method](#management-method)
   - [The CI Pipeline](#the-ci-pipeline)
   - [Testing](#testing)
   - [Risk Assessment](#risk-assessment)
