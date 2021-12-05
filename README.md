@@ -38,11 +38,21 @@ The image shows github project board being used to track the user stories, featu
 
 ## The CI Pipeline
 
+The following images will give you an idea on how I carried out the CI (continuous intergration) pipeline, with what services and framework.
+
 ![CI Pipeline](https://imgur.com/DZtmRqW.jpg)
 
+This approach allows developers to implament new codes easily and frequently, all done so via a automated system that pulls from repo, builds the image into containers, test and then finally deploy. Thus, allowing devlopers to simplfiy this repetitious process and instead focus on coding.
 
 ![Jenkins](https://imgur.com/vEQTGSr.jpg)
 
+Here I show the stages I had automated via a script to be ran by using Jekings:
+* Checkout SCM: Using webhook to pull the code from designated branch in a repo
+* Setup: Installing dependencies, services and provding the credentials needed for said services.
+* Test: Installing and using pytest, junit and coberture reports.
+* Build: Building the backend and frontend image into a container (can also scale the app with replicas if more resources is required). 
+* Push: Pushing the container onto docker hub.
+* Deploy: Deploying it to docker swarm service. So when the app is running, it can load balance any incoming users traffic equally to the VMs.
 
 ## Testing
 For the testing process of the app, the following images below shows the many test reports I had included with in the test to maximise the amount of information output. Meaning it can produce a better overall picture on how many codes has passed and failed.
