@@ -1,8 +1,9 @@
 # Retro Video Games 90s Database
 
 ## Table of contents
-- [Table of contents](#table-of-contents)
-  - [Project info](#project-info)
+- [Retro Video Games 90s Database](#retro-video-games-90s-database)
+  - [Table of contents](#table-of-contents)
+  - [Project Info](#project-info)
     - [Brief](#brief)
     - [App Specification](#app-specification)
     - [Structure of Database](#structure-of-database)
@@ -88,7 +89,7 @@ I had hope to implament an rule which prevents certain dates to be entered into 
 
 ### Better UI
 
-Very basic look with basic app features. I wanted to add the abilities to include images of both games and consoles. Also, to improve the design on the website to look more up to date/modern silimar to what websites we have today.
+Very basic look with basic app features. I wanted to add the means to include images of both games and consoles. Also, to improve the design on the website to look more up to date/modern silimar to what websites we have today.
 
 
 ## Misc
