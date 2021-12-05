@@ -21,7 +21,7 @@
 This project will summariezed all the skills and knowledge I have gained throughout my time during the 9 weeks at QA Limited DevOps Skill Bootcamp. For this project I aim to create a web application that shows the fucntiality of CRUD: Create, Read, Update and Delete. Then I am to host the app within a container using Docker and deploy it. This will display my competence at creating a CI/CD pipeline that is automated for test, build and deploying the app.
 
 ### App Specification
-My project will be based on a database which allows user to input data for video games that were released during the 90s. It will also show what kind of platform that these games were playable on. Furthermore, if users wanted to attached an comment/summary to the entry, they were allowed to. The demo at the misc section will give an more detailed look at how my app operates.
+My project will be based on a database which allows user to input data for video games that were released during the 90s. It will also show what kind of platform that these games were playable on. Furthermore, if users wanted to attached an comment/summary to the entry, they were allowed to. The demo at the misc section will give an more detailed look at how my frontend app operates.
 
 ### Structure of Database
 
