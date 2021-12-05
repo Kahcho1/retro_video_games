@@ -38,7 +38,7 @@ The image shows github project board being used to track the user stories, featu
 
 ## The CI Pipeline
 
-![CI Pipeline](https://imgur.com/704UbFA.jpg)
+![CI Pipeline](https://imgur.com/yjMiXvE.jpg)
 Show steps of deploying project.
 
 
