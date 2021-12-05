@@ -39,11 +39,23 @@ The image shows github project board being used to track the user stories, featu
 ## The CI Pipeline
 
 ![CI Pipeline](https://imgur.com/DZtmRqW.jpg)
-Show steps of deploying project.
+
+
+![Jenkins](https://imgur.com/vEQTGSr.jpg)
 
 
 ## Testing
-Show the testing done project.
+
+![Cobertura](https://imgur.com/v0FHiPT.jpg)
+
+
+![Backend Testin](https://imgur.com/Icz9RHy.jpg)
+
+
+![Frontend Testing](https://imgur.com/0tkFg1w.jpg)
+
+
+![Junit Test Results](https://imgur.com/OGydIDE.jpg)
 
 
 ## Risk Assessment
