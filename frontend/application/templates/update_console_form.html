@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<p style="font-family:Arial, Helvetica, sans-serif"> 
+    <b>Game entry being updated:</b> {{ console.name }}
+    <br>
+    <br>
+    <b>Release Date:</b> {{ console.release_date }}
+    <br>
+</p>
+<hr>
+<div class='form'>
+    <form method='POST' action=''>
+        {{ form.hidden_tag() }}
+    <b>{{ form.name.label }}</b> {{ form.name }}
+        <br>
+        <br>
+    <b>{{ form.date.label }}</b> {{ form.date }}
+        <br>
+        {{ form.submit }}
+        <br>
+    </form>
+</div>
+{% endblock body %}

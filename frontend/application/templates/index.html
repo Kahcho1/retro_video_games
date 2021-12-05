@@ -1,6 +1,20 @@
 {% extends "layout.html" %}
 
 {% block body %}
-    <h2></h2>
+    <h2>List of Games in the 90s</h2>
+    {% for game in all_game %}
+        <p style="font-family:Arial, Helvetica, sans-serif">
+        <strong>Game Title:</strong> {{ game.name }}
+            <br>
+        <strong>Release Date:</strong> {{ game.release_date }}
+            <br>
+        <strong>Platform:</strong> {{ game.console }}
+            <br>
+        <strong>Summary:</strong> {{ game.description }}
+            <br>
+            <a href="{{ url_for('update_game', id=game.id) }}">Edit Game</a>&ensp;&ensp;&ensp;
+            <a href="{{ url_for('delete', id=game.id) }}">Delete Game</a>
+        </p>
+    {% endfor %}
 
 {% endblock body %}
