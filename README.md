@@ -45,19 +45,23 @@ The image shows github project board being used to track the user stories, featu
 
 
 ## Testing
+For the testing process of the app, the following images below shows the many test reports I had included with in the test to maximise the amount of information output. Meaning it can produce a better overall picture on how many codes has passed and failed.
 
 ![Cobertura](https://imgur.com/v0FHiPT.jpg)
 
+Here I use a plugin on Jenkins called Cobertura to provide a better summary on how much coverage of the code my test has picked up for the overall app.
 
 ![Backend Testin](https://imgur.com/Icz9RHy.jpg)
 
+On the source code itself, I used pytest to run unit test. This is for my Backend.
 
 ![Frontend Testing](https://imgur.com/0tkFg1w.jpg)
 
+Here is for the Frontend. Both of these process are then later put into a script so it can be automated via Jenkins.
 
 ![Junit Test Results](https://imgur.com/OGydIDE.jpg)
 
-
+Here is a image of Junit displaying the pass and failed results in graph form.
 ## Risk Assessment
 
 
