@@ -25,7 +25,7 @@ My project will be based on a database which allows user to input data for video
 
 ### Structure of Database
 
-![Entity Relationship Diagram](https://imgur.com/7H2E0gw.jpg)
+![Entity Relationship Diagram](https://imgur.com/eC5iRfd.jpg)
 
 The image represents a ERD: entity relationship diagram. This shows the structure of the database, displaying the many features I will be adding to my app. The app will be based on a one-to-many relationship, between console and games. Meaning, when user enters a specific console, they can assoicate it will as many games as they want.
 
@@ -37,6 +37,8 @@ The image shows github project board being used to track the user stories, featu
 
 
 ## The CI Pipeline
+
+![CI Pipeline](https://imgur.com/704UbFA.jpg)
 Show steps of deploying project.
 
 
