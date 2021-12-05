@@ -74,6 +74,7 @@ Here is for the Frontend. Both of these process are then later put into a script
 Here is a image of Junit displaying the pass and failed results in graph form.
 ## Risk Assessment
 
+![Risk Assessment](https://imgur.com/Xzo4fUL.jpg)
 
 ## Future Improvements
 ### More Testing
